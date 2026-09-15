@@ -84,13 +84,19 @@ for name in names:
 # ('ا', 'ل'): 15568   ← الـ (al-) is extremely common
 ```
 
-Store in a 35×35 tensor and normalize with Laplace smoothing:
+Store in a 35×35 tensor:
 
 ```python
 arr = torch.zeros((35, 35), dtype=torch.int32)
 for (ch1, ch2), count in seq.items():
     arr[ch_dict[ch1], ch_dict[ch2]] = count
+```
 
+![Bigram Matrix Visualization](outputs/bigram_matrix.png)
+
+And normalize with Laplace smoothing:
+
+```python
 P = (counts + 1) / (counts.sum(dim=1, keepdim=True) + 35)
 ```
 
